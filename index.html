@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grid Layout Builder - Professional CSS Grid Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="loading-content">
+      <i class="fas fa-th loading-icon"></i>
+      <div class="loading-text">GridBuilder Pro</div>
+      <div class="spinner"></div>
+    </div>
+  </div>
+  <nav class="nav" id="nav">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-th"></i>
+        <span>GridBuilder Pro</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#builder">Builder</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="theme-btn" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+      </button>
+    </div>
+  </nav>
+  <div class="progress-bar" id="progressBar"></div>
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-star"></i>
+        <span>Trusted by 10,000+ developers</span>
+      </div>
+      <h1>Professional Grid Layout Builder</h1>
+      <p class="hero-subtitle">The Ultimate Visual CSS Grid Development Environment</p>
+      <p class="hero-author">Created by <strong>Muhammad Attiq</strong> - Senior Web Developer</p>
+      
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="scrollTo('#builder')">
+          <i class="fas fa-play"></i>
+          Start Building
+        </button>
+        <button class="btn btn-secondary" onclick="showDemo()">
+          <i class="fas fa-video"></i>
+          Watch Demo
+        </button>
+      </div>
+
+      <div class="features" id="features">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Instant Visualization</h3>
+          <p>Real-time grid preview with live code generation</p>
+          <div class="feature-stat">100% Real-time</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-code"></i></div>
+          <h3>Production Code</h3>
+          <p>Clean HTML, CSS, SCSS & React components</p>
+          <div class="feature-stat">5+ Formats</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Responsive Ready</h3>
+          <p>Mobile-first layouts that work everywhere</p>
+          <div class="feature-stat">100% Mobile</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Instructions -->
+    <div class="instructions">
+      <i class="fas fa-info-circle"></i>
+      Click and drag to create blocks. Double-click to delete. 
+      <kbd>Ctrl+Z</kbd> undo, <kbd>Ctrl+Y</kbd> redo, <kbd>Ctrl+C</kbd> copy
+    </div>
+    <section class="builder" id="builder">
+      <div class="builder-header">
+        <h2>Grid Builder Interface</h2>
+        <div class="builder-actions">
+          <button class="action-btn" onclick="undo()" title="Undo"><i class="fas fa-undo"></i></button>
+          <button class="action-btn" onclick="redo()" title="Redo"><i class="fas fa-redo"></i></button>
+          <button class="action-btn" onclick="save()" title="Save"><i class="fas fa-save"></i></button>
+          <button class="action-btn" onclick="load()" title="Load"><i class="fas fa-folder-open"></i></button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label><i class="fas fa-grip-lines"></i> Rows: 
+            <input type="number" id="rows" min="1" max="12" value="4" />
+          </label>
+          <label><i class="fas fa-grip-lines-vertical"></i> Columns: 
+            <input type="number" id="cols" min="1" max="12" value="4" />
+          </label>
+        </div>
+        <div class="control-actions">
+          <button class="btn btn-primary" onclick="generateGrid()">
+            <i class="fas fa-magic"></i> Generate
+          </button>
+          <button class="btn btn-danger" onclick="clearBlocks()">
+            <i class="fas fa-trash"></i> Clear
+          </button>
+          <button class="btn btn-success" onclick="loadPreset()">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </button>
+        </div>
+      </div>
+
+      <div class="grid-wrapper">
+        <div class="grid-toolbar">
+          <span id="gridInfo">4×4 Grid</span>
+          <div class="grid-tools">
+            <button class="tool-btn" onclick="toggleGrid()" title="Toggle Grid">
+              <i class="fas fa-border-all"></i>
+            </button>
+            <button class="tool-btn" onclick="toggleSnap()" title="Snap to Grid">
+              <i class="fas fa-magnet"></i>
+            </button>
+          </div>
+        </div>
+        <div id="grid" class="grid"></div>
+      </div>
+      <div class="code-section">
+        <div class="code-tabs">
+          <button class="tab active" onclick="switchTab('html')">
+            <i class="fab fa-html5"></i> HTML
+          </button>
+          <button class="tab" onclick="switchTab('css')">
+            <i class="fab fa-css3-alt"></i> CSS
+          </button>
+          <button class="tab" onclick="switchTab('scss')">
+            <i class="fab fa-sass"></i> SCSS
+          </button>
+          <button class="tab" onclick="switchTab('react')">
+            <i class="fab fa-react"></i> React
+          </button>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <label id="codeLabel">HTML Code</label>
+            <div class="code-actions">
+              <button onclick="copyCode()" title="Copy"><i class="fas fa-copy"></i></button>
+              <button onclick="downloadCode()" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="code-editor">
+            <pre><code id="codeOutput" class="language-html"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="description">
+      <h2>Revolutionize Your CSS Grid Workflow</h2>
+      <p>Professional-grade Grid Layout Builder that eliminates guesswork from CSS Grid development. 
+      Visual interface that translates directly to clean, efficient code.</p>
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-rocket"></i></div>
+          <h4>10x Faster</h4>
+          <p>Build layouts in minutes</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-code"></i></div>
+          <h4>Clean Code</h4>
+          <p>Production-ready output</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-users"></i></div>
+          <h4>Collaboration</h4>
+          <p>Share and iterate</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h4>Responsive</h4>
+          <p>Mobile-first design</p>
+        </div>
+      </div>
+      <div class="use-cases">
+        <h3>Perfect For:</h3>
+        <div class="use-case-list">
+          <div class="use-case"><i class="fas fa-check"></i> Rapid prototyping</div>
+          <div class="use-case"><i class="fas fa-check"></i> Teaching CSS Grid</div>
+          <div class="use-case"><i class="fas fa-check"></i> Client demos</div>
+          <div class="use-case"><i class="fas fa-check"></i> Layout optimization</div>
+          <div class="use-case"><i class="fas fa-check"></i> Cross-browser testing</div>
+          <div class="use-case"><i class="fas fa-check"></i> Educational workshops</div>
+        </div>
+      </div>
+    </section>
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials-header">
+        <h2>What Professionals Say</h2>
+        <p>Join thousands of developers who trust GridBuilder Pro</p>
+      </div>
+      
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
+          <p>"Cut our development time by 60%. Exceptional code quality!"</p>
+          <h4>Sarah Johnson</h4>
+          <span>Lead Frontend Developer</span>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+          <p>"Best tool for teaching Grid. Students love the visual approach!"</p>
+          <h4>Michael Chen</h4>
+          <span>UI/UX Instructor</span>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Emily Davis">
+          <p>"Perfect for design sprints. Essential tool for our workflow!"</p>
+          <h4>Emily Davis</h4>
+          <span>Product Designer</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">10,000+</div>
+          <div class="stat-label">Users</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50,000+</div>
+          <div class="stat-label">Grids Created</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4.9/5</div>
+          <div class="stat-label">Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="contact">
+    <div class="footer-content">
+      <div class="contact">
+        <h3>Let's Build Something Extraordinary</h3>
+        <p>Contact me for project requirements, quotes, or consultations:</p>
+        <div class="social-links">
+          <a href="https://wa.me/923021183906" class="social whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>+92 302 1183906</span>
+          </a>
+          <a href="https://linkedin.com/in/muhammadattiqweb3" class="social linkedin">
+            <i class="fab fa-linkedin"></i>
+            <span>muhammadattiqweb3</span>
+          </a>
+          <a href="https://github.com/attiqzahoor" class="social github">
+            <i class="fab fa-github"></i>
+            <span>attiqzahoor</span>
+          </a>
+          <a href="mailto:attiqmuhammad51@gmail.com" class="social email">
+            <i class="fas fa-envelope"></i>
+            <span>attiqmuhammad51@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Muhammad Attiq. All rights reserved.</p>
+      <div class="badges">
+        <span class="badge"><i class="fas fa-shield-alt"></i> Secure</span>
+        <span class="badge"><i class="fas fa-rocket"></i> Fast</span>
+        <span class="badge"><i class="fas fa-mobile-alt"></i> Responsive</span>
+      </div>
+    </div>
+  </footer>
+  <div class="toast-container" id="toastContainer"></div>
+  <div class="modal" id="demoModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>GridBuilder Pro Demo</h3>
+        <button onclick="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-placeholder">
+          <i class="fas fa-play-circle"></i>
+          <p>Interactive Demo Coming Soon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+ 
